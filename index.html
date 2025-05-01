@@ -846,7 +846,7 @@
 <section id="form">
     <h2>特別モニター登録フォーム</h2>
     <form action="https://formsubmit.co/t.1436@icloud.com" method="POST"　id="monitorForm">
-        <input type="hidden" name="_next" value="https://Tatsuya1031.github.io/my-landingーpage/thank.html">
+        <input type="hidden" name="_next" value="https://Tatsuya1031.github.io/my-landing-page/thank.html">
         <input type="hidden" name="_captcha" value="false">
         
 
@@ -1022,98 +1022,7 @@
         <a href="#form" class="cta-button slide-up-cta-button">今だけ50%OFF！モニター登録する</a>
     </div>
     
-    <script>
-        // カウントダウンタイマー
-        function updateCountdown() {
-            const now = new Date();
-            const hours = 24 - now.getHours();
-            const minutes = 59 - now.getMinutes();
-            const seconds = 59 - now.getSeconds();
-            
-            document.querySelector('.countdown-timer .countdown-item:nth-child(2) .countdown-number').textContent = hours < 10 ? '0' + hours : hours;
-            document.querySelector('.countdown-timer .countdown-item:nth-child(3) .countdown-number').textContent = minutes < 10 ? '0' + minutes : minutes;
-            document.querySelector('.countdown-timer .countdown-item:nth-child(4) .countdown-number').textContent = seconds < 10 ? '0' + seconds : seconds;
-        }
-        
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-        
-        // スムーススクロール
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // フォーム離脱防止
-        const form = document.querySelector('form');
-        let formStarted = false;
-        
-        form.addEventListener('input', () => {
-            formStarted = true;
-        });
-        
-        window.addEventListener('beforeunload', (e) => {
-            if (formStarted) {
-                const message = '入力中でも特典は確保済です。本当に離れますか？';
-                e.returnValue = message;
-                return message;
-            }
-        });
-        
-        // 残りモニター数の減少演出（販売心理学的効果）
-        let remainingCount = 7;
-        const intervalTime = Math.floor(Math.random() * (180000 - 60000)) + 60000; // 1〜3分の間でランダムに減少
-        
-        function updateRemainingCount() {
-            if (remainingCount > 1) {
-                remainingCount--;
-                const notification = document.createElement('div');
-                notification.style.position = 'fixed';
-                notification.style.bottom = '100px';
-                notification.style.left = '20px';
-                notification.style.background = 'rgba(123, 104, 238, 0.9)';
-                notification.style.color = 'white';
-                notification.style.padding = '15px';
-                notification.style.borderRadius = '10px';
-                notification.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
-                notification.style.zIndex = '99';
-                notification.style.transition = 'opacity 0.5s';
-                notification.style.animation = 'slideIn 0.5s forwards';
-                notification.innerHTML = `<strong>あと${remainingCount}名</strong>で募集終了！<br>お早めにお申し込みください。`;
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.opacity = '0';
-                    setTimeout(() => {
-                        document.body.removeChild(notification);
-                    }, 500);
-                }, 5000);
-                
-                // CSSアニメーション
-                const style = document.createElement('style');
-                style.innerHTML = `
-                    @keyframes slideIn {
-                        from { transform: translateY(20px); opacity: 0; }
-                        to { transform: translateY(0); opacity: 1; }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-            
-            // 次の更新をスケジュール
-            if (remainingCount > 1) {
-                setTimeout(updateRemainingCount, intervalTime);
-            }
-        }
- 
-          
-    </script>
+    
     
 </body>
 </html>
