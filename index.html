@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UP!drink - 眠れない夜に、内側から輝く休息を</title>
+    <style>
+        /* リセットCSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a1a;
+            color: #f0f0f0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 星空背景 - ページ全体に適用 */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 200px 200px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 250px 250px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 300px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 350px 100px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 400px 200px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 450px 300px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 500px 100px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 550px 200px, #ffffff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 600px 600px;
+            animation: twinkle 4s infinite;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        /* セクションの背景を半透明に */
+        section {
+            background-color: rgba(10, 10, 26, 0.7);
+            margin: 3rem auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* ヘッダー */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(10, 10, 26, 0.5), rgba(10, 10, 26, 0.5));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .moon {
+            position: absolute;
+            top: 15%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background-color: #FFE87C;
+            border-radius: 50%;
+            box-shadow: 0 0 40px 20px rgba(255, 232, 124, 0.4);
+            z-index: -1; /* 文字の後ろに配置 */
+            overflow: hidden;
+        }
+        
+        .moon::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -20%;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(10, 10, 26, 0.95);
+            border-radius: 50%;
+        }
+        
+        .headline {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            max-width: 80%;
+            line-height: 1.2;
+        }
+        
+        .subheadline {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 80%;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+        
+        .countdown {
+            background: rgba(65, 105, 225, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(123, 104, 238, 0.3);
+            box-shadow: 0 0 20px rgba(123, 104, 238, 0.2);
+        }
+        
+        .countdown p {
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #a0d0ff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+        
+        .countdown-timer {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .countdown-number {
+            background: rgba(123, 104, 238, 0.3);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 0 10px rgba(123, 104, 238, 0.4);
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .countdown-item div:last-child {
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: #a0d0ff;
+        }
+        
+        /* セクション共通 */
+        section {
+            padding: 5rem 1rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #a0a0ff;
+            text-shadow: 0 0 10px rgba(160, 160, 255, 0.5);
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #a0d0ff;
+            text-shadow: 0 0 5px rgba(160, 208, 255, 0.3);
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        /* 問題・解決セクション */
+        .problem-solution {
+            background: rgba(16, 16, 40, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(123, 104, 238, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .problem-solution:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(123, 104, 238, 0.3);
+        }
+        
+        .testimonial {
+            background: rgba(30, 30, 60, 0.8);
+            border-radius: 10px;
+            padding: 1.8rem;
+            margin: 2.5rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #7b68ee;
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #e0e0ff;
+        }
+        
+        .testimonial-author {
+            text-align: right;
+            font-weight: bold;
+            color: #a0d0ff;
+        }
+        
+        /* 成分セクション */
+        .ingredients {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        
+        .ingredient {
+            background: rgba(16, 16, 40, 0.8);
+            border-radius: 15px;
+            padding: 1.8rem;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(123, 104, 238, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .ingredient:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(123, 104, 238, 0.3);
+        }
+        
+        .ingredient-image {
+            width: 100%;
+            height: 200px;
+            background-color: #1a1a3a;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #a0a0ff;
+            background: linear-gradient(135deg, #1a1a3a, #2a2a5a);
+            border: 1px solid rgba(123, 104, 238, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ingredient-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(rgba(255, 255, 255, 0.08), transparent);
+            transform: rotate(30deg);
+            animation: sheen 3s infinite;
+        }
+        
+        @keyframes sheen {
+            0% { transform: translateY(-100%) rotate(30deg); }
+            100% { transform: translateY(100%) rotate(30deg); }
+        }
+        
+        /* 比較表 - 洗練されたデザイン */
+        .comparison {
+            overflow-x: auto;
+            margin: 2.5rem 0;
+        }
+        
+        .comparison table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .comparison th, .comparison td {
+            padding: 1.2rem;
+            text-align: center;
+            border: none;
+        }
+        
+        .comparison th {
+            background: linear-gradient(45deg, #4169e1, #7b68ee);
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        /* UP!drinkの列を強調 */
+        .comparison th:nth-child(2), .comparison td:nth-child(2) {
+            background-color: rgba(123, 104, 238, 0.2);
+            font-weight: bold;
+        }
+        
+        /* 行ごとの色分け */
+        .comparison tr:nth-child(odd) td {
+            background-color: rgba(16, 16, 40, 0.5);
+        }
+        
+        .comparison tr:nth-child(even) td {
+            background-color: rgba(16, 16, 40, 0.7);
+        }
+        
+        /* ホバー効果 */
+        .comparison tr:hover td {
+            background-color: rgba(123, 104, 238, 0.2);
+            transition: background-color 0.3s;
+        }
+        
+        /* 「◯」「△」「×」の代わりにカラーアイコン */
+        .check-ok, .check-partial, .check-no {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .check-ok {
+            background-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .check-ok::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .check-partial {
+            background-color: #FFC107;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+        
+        .check-partial::after {
+            content: "△";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .check-no {
+            background-color: #F44336;
+            box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+        }
+        
+        .check-no::after {
+            content: "×";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        /* CTA */
+        .cta-button {
+            background: linear-gradient(45deg, #7b68ee, #4169e1);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(65, 105, 225, 0.4);
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .mini-cta {
+            padding: 0.8rem 1.6rem;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .fixed-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 26, 0.95);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        
+        .fixed-cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            padding: 0.8rem 1.8rem;
+        }
+        
+        .price {
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .price strong {
+            color: #ff6b6b;
+            font-size: 1.4rem;
+        }
+        
+        /* フォーム */
+        form {
+            background: rgba(16, 16, 40, 0.8);
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(123, 104, 238, 0.2);
+        }
+        
+        form label {
+            display: block;
+            margin-bottom: 0.7rem;
+            color: #a0d0ff;
+            font-weight: bold;
+        }
+        
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="tel"] {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid rgba(123, 104, 238, 0.3);
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            margin-bottom: 1.5rem;
+        }
+        
+        form input:focus {
+            outline: none;
+            border-color: #7b68ee;
+            box-shadow: 0 0 10px rgba(123, 104, 238, 0.5);
+        }
+        
+        /* 特商法・プライバシーポリシー */
+        .legal-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .legal-table th, .legal-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(160, 160, 255, 0.3);
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .legal-table th {
+            width: 30%;
+            color: #a0d0ff;
+            font-weight: bold;
+        }
+        
+        /* プライバシーポリシー */
+        .privacy-policy h3 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #a0d0ff;
+        }
+        
+        .privacy-policy ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .privacy-policy li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* フッター */
+        footer {
+            background-color: rgba(10, 10, 26, 0.9);
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(123, 104, 238, 0.2);
+        }
+        
+        footer p {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            margin: 2rem 0;
+        }
+        
+        .footer-links a {
+            color: #a0d0ff;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #7b68ee;
+            text-decoration: underline;
+        }
+        
+        .disclaimer {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            max-width: 800px;
+            margin: 2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(160, 160, 255, 0.2);
+        }
+        
+        /* チャットウィジェット */
+        .chat-widget {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: linear-gradient(45deg, #4169e1, #7b68ee);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 99;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .chat-widget:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(123, 104, 238, 0.5);
+        }
+        
+        /* レスポンシブ */
+        @media (min-width: 768px) {
+            .section-container {
+                flex-direction: row;
+            }
+            
+            .problem-solution {
+                width: 48%;
+            }
+            
+            .ingredient {
+                width: calc(33.333% - 2rem);
+            }
+        }
+        .slide-up-cta{
+          position:fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background: rgba(10, 10, 26, 0.95);
+          padding: 1rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+          z-index: 100;
+          backdrop-filter: blur(5px);
+        }
+        .slide-up-cta-button{
+          background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+          padding: 0.8rem 1.8rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空背景 - ページ全体に適用 -->
+    <div class="stars"></div>
+    
+    <header>
+        <div class="moon"></div>
+        <h1 class="headline">眠れない夜に、あなたの心と体は何を求めているのか</h1>
+        <p class="subheadline">毎晩3時間以上も続く寝つきの悪さ…それは単なる疲れではなく、あなたの体が発するSOSサインかもしれません</p>
+        
+        <div class="countdown">
+            <p>先着100名！モニター50%OFF特典 終了まで残り</p>
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <div class="countdown-number">0</div>
+                    <div>日</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number">8</div>
+                    <div>時間</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number">45</div>
+                    <div>分</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number">30</div>
+                    <div>秒</div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="#form" class="cta-button">今だけ50%OFF！モニター登録する</a>
+    </header>
+
+    <section id="problems">
+        <h2>あなたが「良質な睡眠」から遠ざかっている理由</h2>
+        
+        <div class="section-container">
+            <div class="problem-solution">
+                <h3>現代人の87%が抱える「睡眠負債」</h3>
+                <p>寝ようとすればするほど、頭がさえてしまう。そんな経験はありませんか？実はこれ、あなたの脳が日中のストレスを処理しきれていないサインです。</p>
+                <p>毎日積み重なるストレスや情報過多により、脳が休息できずにいるのです。</p>
+                <a href="#form" class="cta-button mini-cta">脳の休息を手に入れる</a>
+            </div>
+            
+            <div class="problem-solution">
+                <h3>睡眠の質が人生の質を決める</h3>
+                <p>睡眠不足は単なる疲労感だけでなく、決断力の低下、免疫力の低下、さらには寿命にまで影響することが科学的に証明されています。</p>
+                <p>あなたは明日の活力のために、本当の休息が必要なのです。</p>
+                <a href="#form" class="cta-button mini-cta">本当の休息を体験する</a>
+            </div>
+        </div>
+        
+        <div class="testimonial">
+            <p class="testimonial-content">「仕事のストレスで3年間、寝つきが悪く悩んでいました。色々試しましたが、UP!drinkを飲み始めてからは、30分で心地よく眠りにつけるようになりました。朝の目覚めも違います。」</p>
+            <p class="testimonial-author">東京都 40代 IT企業勤務 佐藤さん</p>
+        </div>
+        
+        <p class="disclaimer" style="text-align: center; margin-top: 2rem; font-size: 0.9rem;">※ 効果には個人差があります。本品は医薬品ではありません。</p>
+    </section>
+    
+    <section id="solution">
+        <h2>UP!drink - 内側から輝く休息へ</h2>
+        <p>UP!drinkは、古来から伝わる東洋の知恵と最新の睡眠科学を融合させた、あなたの脳と体に優しい休息ドリンクです。</p>
+        
+        <div class="ingredients">
+            <div class="ingredient">
+                <div class="ingredient-image">霊芝の画像</div>
+                <h3>霊芝（レイシ）</h3>
+                <p>2000年以上前から「不老長寿の薬」として珍重されてきた霊芝。アダプトゲン作用により、ストレスに対する抵抗力を高め、心身のバランスを整えます。</p>
+                <p>UP!drinkには最高品質の霊芝エキスを配合しています。</p>
+            </div>
+            
+            <div class="ingredient">
+                <div class="ingredient-image">アシュワガンダの画像</div>
+                <h3>アシュワガンダ</h3>
+                <p>インド伝統医学アーユルヴェーダの代表的ハーブ。ストレスホルモン「コルチゾール」のレベルを下げ、リラックス状態へと導きます。</p>
+                <p>UP!drinkでは有効成分が豊富な根のエキスを使用しています。</p>
+            </div>
+            
+            <div class="ingredient">
+                <div class="ingredient-image">トリプトファンの画像</div>
+                <h3>トリプトファン</h3>
+                <p>幸せホルモン「セロトニン」の原料となる必須アミノ酸。体内でセロトニンに変換された後、さらに睡眠ホルモン「メラトニン」に変わります。</p>
+                <p>UP!drinkには最も吸収率の高い形で配合しています。</p>
+            </div>
+        </div>
+        
+        <a href="#form" class="cta-button">今だけ50%OFF！モニター登録する</a>
+        
+        <p class="disclaimer" style="text-align: center; margin-top: 2rem; font-size: 0.9rem;">※ 効果には個人差があります。本品は医薬品ではありません。</p>
+    </section>
+    
+    <section id="comparison">
+        <h2>なぜ一般的な睡眠サプリでは効果が出ないのか</h2>
+        <p>多くの睡眠サプリメントは一時的な効果を狙った成分配合。UP!drinkは「眠り」だけでなく、「質の高い休息」を実現するために設計されています。</p>
+        
+        <div class="comparison">
+            <table>
+                <tr>
+                    <th></th>
+                    <th>UP!drink</th>
+                    <th>一般的な睡眠サプリ</th>
+                    <th>睡眠薬</th>
+                </tr>
+                <tr>
+                    <td>自然な眠りへの誘導</td>
+                    <td><span class="check-ok" title="◯"></span></td>
+                    <td><span class="check-partial" title="△"></span></td>
+                    <td><span class="check-no" title="×"></span></td>
+                </tr>
+                <tr>
+                    <td>朝のスッキリ感</td>
+                    <td><span class="check-ok" title="◯"></span></td>
+                    <td><span class="check-partial" title="△"></span></td>
+                    <td><span class="check-no" title="×"></span></td>
+                </tr>
+                <tr>
+                    <td>依存性</td>
+                    <td>なし</td>
+                    <td>低い</td>
+                    <td>高い</td>
+                </tr>
+                <tr>
+                    <td>脳の休息サポート</td>
+                    <td><span class="check-ok" title="◯"></span></td>
+                    <td><span class="check-no" title="×"></span></td>
+                    <td><span class="check-no" title="×"></span></td>
+                </tr>
+                <tr>
+                    <td>ストレス軽減効果</td>
+                    <td><span class="check-ok" title="◯"></span></td>
+                    <td><span class="check-partial" title="△"></span></td>
+                    <td><span class="check-no" title="×"></span></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="testimonial">
+            <p class="testimonial-content">「色々な睡眠サプリを試しましたが、朝起きた時にだるさが残っていました。UP!drinkは飲んでから30分ほどで自然な眠気が訪れ、朝はスッキリ。もう手放せません。」</p>
+            <p class="testimonial-author">大阪府 35歳 営業職 山田さん</p>
+        </div>
+        
+        <a href="#form" class="cta-button">今だけ50%OFF！モニター登録する</a>
+        
+        <p class="disclaimer" style="text-align: center; margin-top: 2rem; font-size: 0.9rem;">※ 本表は一般的な特徴を比較したものであり、すべての製品に当てはまるものではありません。</p>
+    </section>
+
+    <section id="future">
+        <h2>UP!drinkを選んだ明日のあなた</h2>
+        
+        <div class="section-container">
+            <div class="problem-solution">
+                <h3>7日後のあなた</h3>
+                <p>・寝つきの時間が平均40%短縮</p>
+                <p>・夜中の目覚めが減少し、熟睡感を実感</p>
+                <p>・朝の目覚めがスムーズに</p>
+                <p>実際のユーザーの93%が1週間以内に変化を実感しています。</p>
+            </div>
+            
+            <div class="problem-solution">
+                <h3>30日後のあなた</h3>
+                <p>・日中の集中力が平均58%向上</p>
+                <p>・ストレス耐性が強化され、イライラが減少</p>
+                <p>・肌の調子が改善し、周囲から「最近いい感じ」と言われる</p>
+                <p>継続ユーザーの87%が仕事のパフォーマンス向上を実感しています。</p>
+            </div>
+        </div>
+        
+        <div class="testimonial">
+            <p class="testimonial-content">「最初は半信半疑でした。でも1ヶ月続けてみて、睡眠の質だけでなく日中の集中力も変わりました。同じ仕事量なのに、夕方になっても頭がクリア。人生が変わった気がします。」</p>
+            <p class="testimonial-author">福岡県 28歳 デザイナー 中村さん</p>
+        </div>
+        
+        <a href="#form" class="cta-button">今だけ50%OFF！モニター登録する</a>
+        
+        <p class="disclaimer" style="text-align: center; margin-top: 2rem; font-size: 0.9rem;">※ 効果には個人差があります。本品は医薬品ではありません。</p>
+    </section>
+    
+    <section id="offer">
+        <h2>先着100名様限定！特別モニターコース</h2>
+        <p>UP!drinkの効果を体感いただくために、先着100名様限定で特別モニターコースをご用意しました。</p>
+        
+        <div class="problem-solution">
+            <h3>【特別モニターコース内容】</h3>
+            <p>・UP!drink 10日分（通常価格2,980円）</p>
+            <p>・上質なアロマキャンドル（1,500円相当）</p>
+            <p class="price"><s>通常価格: 4,480円</s> → <strong>今だけ50%OFF: 2,240円</strong></p>
+            <p>※ 送料無料</p>
+            <p>※ いつでも解約可能</p>
+        </div>
+        
+        <div class="testimonial">
+            <p class="testimonial-content">「迷っていたけど、50%OFFだし試してみようと思って申し込みました。今思えばあの決断は人生を変えました。あなたにも同じ体験をしてほしい。」</p>
+            <p class="testimonial-author">北海道 45歳 教師 高橋さん</p>
+        </div>
+        
+        <a href="#form" class="cta-button">今だけ50%OFF！モニター登録する</a>
+    </section>
+    <!-- このコードをランディングページのフォームセクションに置き換えてください -->
+<section id="form">
+    <h2>特別モニター登録フォーム</h2>
+    <form action="https://api.web3forms.com/submit" method="POST" id="monitorForm">
+        <!-- Web3Formsのアクセスキー -->
+        <input type="hidden" name="access_key" value="f6c08a97-af4c-41eb-bf34-8e31ab6bf3f8">
+        
+        <!-- カスタムリダイレクト設定 -->
+        <input type="hidden" name="redirect" value="https://up-drink.neocities.org/thank">
+        
+        <!-- メール件名設定 -->
+        <input type="hidden" name="subject" value="UP!drinkモニター申し込み">
+        
+        <!-- スパムチェック -->
+        <input type="checkbox" name="botcheck" style="display: none;">
+        
+        <div>
+            <label for="name">お名前</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div>
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div>
+            <label for="phone">電話番号</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        
+        <div>
+            <label for="address">住所</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label style="margin-bottom: 1rem;">お支払い方法</label>
+            <div style="display: flex; gap: 2rem;">
+                <label style="display: flex; align-items: center; margin-bottom: 0;">
+                    <input type="radio" name="payment" value="credit_card" checked style="margin-right: 0.5rem;">
+                    <span>クレジットカード</span>
+                </label>
+                <label style="display: flex; align-items: center; margin-bottom: 0;">
+                    <input type="radio" name="payment" value="bank_transfer" style="margin-right: 0.5rem;">
+                    <span>銀行振込</span>
+                </label>
+            </div>
+        </div>
+        
+        <button type="submit" class="cta-button" style="width: 100%;">50%OFFで今すぐ申し込む</button>
+        
+        <p style="font-size: 0.9rem; margin-top: 1.5rem; text-align: center; color: #a0a0a0;">※ お申し込み後、確認メールをお送りします<br>※ 個人情報は厳重に管理し、製品のお届け以外の目的では使用いたしません</p>
+    </form>
+    
+    <p class="disclaimer" style="text-align: center; margin-top: 2rem; font-size: 0.9rem;">※ クレジットカード情報は安全な決済システムで保護されています。</p>
+</section>
+    
+           
+    
+    <section id="faq">
+        <h2>よくあるご質問</h2>
+        
+        <div class="problem-solution" style="margin-bottom: 1.5rem;">
+            <h3>飲むタイミングはいつがベスト？</h3>
+            <p>就寝の30分前に飲むのが最適です。霊芝とアシュワガンダの効果が穏やかに発揮され、自然な眠りへと導きます。</p>
+        </div>
+        
+        <div class="problem-solution" style="margin-bottom: 1.5rem;">
+            <h3>副作用はありますか？</h3>
+            <p>天然由来の成分のみを使用しているため、副作用の心配はほとんどありません。ただし、アレルギーをお持ちの方は成分表をご確認ください。</p>
+        </div>
+        
+        <div class="problem-solution" style="margin-bottom: 1.5rem;">
+            <h3>効果はいつから実感できますか？</h3>
+            <p>個人差はありますが、多くの方が3〜7日程度で効果を実感し始めます。継続的な摂取で効果がさらに高まります。</p>
+        </div>
+        
+        <div class="problem-solution">
+            <h3>モニターコースはいつでも解約できますか？</h3>
+            <p>はい、いつでも解約可能です。次回お届け予定日の7日前までにご連絡いただければ解約手続きを承ります。</p>
+        </div>
+        
+        <p class="disclaimer" style="text-align: center; margin-top: 2rem; font-size: 0.9rem;">※ 効果には個人差があります。本品は医薬品ではありません。</p>
+    </section>
+    
+    <!-- 特商法に基づく表示 -->
+    <section id="legal">
+        <h2>特定商取引法に基づく表示</h2>
+        <div class="problem-solution">
+            <table class="legal-table">
+                <tr>
+                    <th>販売業者名</th>
+                    <td>UP!drink</td>
+                </tr>
+                <tr>
+                    <th>代表者名</th>
+                    <td>東條達也</td>
+                </tr>
+                <tr>
+                    <th>所在地</th>
+                    <td>〒６６１−００１３兵庫県尼崎市栗山町１丁目２２−１０</td>
+                </tr>
+                <tr>
+                    <th>連絡先</th>
+                    <td>TEL: ０８０−１４９０−０３５６<br>Email: support@updrink.jp</td>
+                </tr>
+                <tr>
+                    <th>商品代金</th>
+                    <td>モニターコース: 2,240円（税込）<br>※送料無料</td>
+                </tr>
+                <tr>
+                    <th>支払方法</th>
+                    <td>クレジットカード、銀行振込</td>
+                </tr>
+                <tr>
+                    <th>商品の引渡し時期</th>
+                    <td>ご入金確認後3営業日以内に発送</td>
+                </tr>
+                <tr>
+                    <th>返品・交換・キャンセル</th>
+                    <td>商品到着後7日以内にご連絡いただいた場合に限り返品・交換を承ります。<br>ただし、開封後の返品はお受けできません。</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- プライバシーポリシー -->
+    <section id="privacy">
+        <h2>プライバシーポリシー</h2>
+        <div class="problem-solution privacy-policy">
+            <p>UP!drink（以下「当社」）は、お客様の個人情報を以下のとおり取り扱います。</p>
+            
+            <h3>1. 個人情報の利用目的</h3>
+            <p>当社は、お客様から収集した個人情報を以下の目的で利用します。</p>
+            <ul>
+                <li>商品の発送</li>
+                <li>代金の請求・決済</li>
+                <li>サービスや商品に関する情報提供</li>
+                <li>お問い合わせへの対応</li>
+                <li>サービス向上のための調査・分析</li>
+            </ul>
+            
+            <h3>2. 個人情報の第三者提供</h3>
+            <p>当社は、以下の場合を除き、お客様の個人情報を第三者に提供することはありません。</p>
+            <ul>
+                <li>法令に基づく場合</li>
+                <li>お客様の同意がある場合</li>
+                <li>商品配送など業務委託に必要な範囲内での提供</li>
+            </ul>
+            
+            <h3>3. 個人情報の安全管理</h3>
+            <p>当社は、お客様の個人情報を適切に管理し、漏洩、滅失、毀損などを防止するために必要な措置を講じます。</p>
+            
+            <h3>4. 個人情報の開示・訂正・削除</h3>
+            <p>お客様は、当社に対してご自身の個人情報の開示、訂正、削除を請求することができます。請求を希望される場合は、お問い合わせフォームよりご連絡ください。</p>
+            
+            <h3>5. お問い合わせ先</h3>
+            <p>個人情報に関するお問い合わせは、以下までご連絡ください。</p>
+            <p>UP!drink 個人情報取扱責任者<br>Email: privacy@updrink.jp</p>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2025 UP!drink All Rights Reserved.</p>
+        <p>お問い合わせ: support@updrink.jp</p>
+        
+        <div class="footer-links">
+            <a href="#legal">特定商取引法に基づく表示</a>
+            <a href="#privacy">プライバシーポリシー</a>
+            <a href="#faq">よくあるご質問</a>
+        </div>
+        
+        <p class="disclaimer">※ 効果には個人差があります。本品は医薬品ではありません。<br>
+        本サイトに記載されている内容は、健康増進を目的としたものであり、特定の疾病の診断、治療、予防を目的としたものではありません。<br>
+        体調に異変を感じた場合は、医師にご相談ください。</p>
+    </footer>
+    
+    <div class="slide-up-cta">
+        <a href="#form" class="cta-button slide-up-cta-button">今だけ50%OFF！モニター登録する</a>
+    </div>
+    
+    <script>
+        // カウントダウンタイマー
+        function updateCountdown() {
+            const now = new Date();
+            const hours = 24 - now.getHours();
+            const minutes = 59 - now.getMinutes();
+            const seconds = 59 - now.getSeconds();
+            
+            document.querySelector('.countdown-timer .countdown-item:nth-child(2) .countdown-number').textContent = hours < 10 ? '0' + hours : hours;
+            document.querySelector('.countdown-timer .countdown-item:nth-child(3) .countdown-number').textContent = minutes < 10 ? '0' + minutes : minutes;
+            document.querySelector('.countdown-timer .countdown-item:nth-child(4) .countdown-number').textContent = seconds < 10 ? '0' + seconds : seconds;
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // フォーム離脱防止
+        const form = document.querySelector('form');
+        let formStarted = false;
+        
+        form.addEventListener('input', () => {
+            formStarted = true;
+        });
+        
+        window.addEventListener('beforeunload', (e) => {
+            if (formStarted) {
+                const message = '入力中でも特典は確保済です。本当に離れますか？';
+                e.returnValue = message;
+                return message;
+            }
+        });
+        
+        // 残りモニター数の減少演出（販売心理学的効果）
+        let remainingCount = 7;
+        const intervalTime = Math.floor(Math.random() * (180000 - 60000)) + 60000; // 1〜3分の間でランダムに減少
+        
+        function updateRemainingCount() {
+            if (remainingCount > 1) {
+                remainingCount--;
+                const notification = document.createElement('div');
+                notification.style.position = 'fixed';
+                notification.style.bottom = '100px';
+                notification.style.left = '20px';
+                notification.style.background = 'rgba(123, 104, 238, 0.9)';
+                notification.style.color = 'white';
+                notification.style.padding = '15px';
+                notification.style.borderRadius = '10px';
+                notification.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+                notification.style.zIndex = '99';
+                notification.style.transition = 'opacity 0.5s';
+                notification.style.animation = 'slideIn 0.5s forwards';
+                notification.innerHTML = `<strong>あと${remainingCount}名</strong>で募集終了！<br>お早めにお申し込みください。`;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 5000);
+                
+                // CSSアニメーション
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes slideIn {
+                        from { transform: translateY(20px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // 次の更新をスケジュール
+            if (remainingCount > 1) {
+                setTimeout(updateRemainingCount, intervalTime);
+            }
+        }
+ 
+          
+    </script>
+    <script>
+  // フォーム送信イベントリスナーを追加
+  document.getElementById('monitorForm').addEventListener('submit', function(event) {
+    // フォームが送信されたことを示すフラグをリセット
+    window.formStarted = false;
+    console.log('フォームが送信されました');
+  });
+</script>
+<script>
+  document.getElementById('monitorForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // デフォルトの送信を防止
+    
+    const form = this;
+    const formData = new FormData(form);
+    const submitButton = form.querySelector('button[type="submit"]');
+    
+    // ボタンを無効化して二重送信を防止
+    submitButton.disabled = true;
+    submitButton.textContent = '送信中...';
+    
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        window.location.href = 'https://up-drink.neocities.org/thank.html';
+      } else {
+        console.error('送信エラー:', response);
+        alert('送信に失敗しました。もう一度お試しください。');
+      }
+    })
+    .catch(error => {
+      console.error('送信エラー:', error);
+      alert('送信中にエラーが発生しました。');
+    })
+    .finally(() => {
+      submitButton.disabled = false;
+      submitButton.textContent = '50%OFFで今すぐ申し込む';
+      window.formStarted = false;
+    });
+  });
+</script>
+</body>
+</html>

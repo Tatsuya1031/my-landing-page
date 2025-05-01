@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UP!drink - お申し込みありがとうございます</title>
+    <style>
+        /* リセットCSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a1a;
+            color: #f0f0f0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 星空背景 - ページ全体に適用 */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 200px 200px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 250px 250px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 300px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 350px 100px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 400px 200px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 450px 300px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 500px 100px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 550px 200px, #ffffff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 600px 600px;
+            animation: twinkle 4s infinite;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+        /* 洗練された星の輝き効果 */
+        .star-shine {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: #fff;
+            border-radius: 50%;
+            filter: blur(0.5px);
+            opacity: 0;
+            z-index: 0;
+            box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
+        
+        /* サンクスページコンテンツ */
+        .thanks-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .thanks-content {
+            background: rgba(16, 16, 40, 0.8);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(123, 104, 238, 0.2);
+            border: 1px solid rgba(123, 104, 238, 0.3);
+            animation: fadeIn 1s ease-out;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* コンテンツ背景の高級感あるグラデーション */
+        .thanks-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(123, 104, 238, 0.05) 0%, rgba(65, 105, 225, 0.05) 100%);
+            border-radius: 20px;
+            z-index: -1;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .thanks-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #7b68ee, #4169e1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 2rem;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(123, 104, 238, 0.4);
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(123, 104, 238, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(123, 104, 238, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(123, 104, 238, 0); }
+        }
+        
+        .thanks-icon::after {
+            content: "✓";
+            font-size: 70px;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #a0a0ff;
+            text-shadow: 0 0 10px rgba(160, 160, 255, 0.3);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #e0e0ff;
+            font-weight: 300;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .order-details {
+            background: rgba(30, 30, 60, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+            border-left: 4px solid #7b68ee;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .order-details h3 {
+            margin-bottom: 1rem;
+            color: #a0d0ff;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(160, 160, 255, 0.2);
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .free-item {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: #ff6b6b;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 0.8rem;
+            border-top: 2px solid rgba(160, 160, 255, 0.3);
+        }
+        
+        .next-steps {
+            margin-top: 2rem;
+            background: rgba(30, 30, 60, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .next-steps h3 {
+            margin-bottom: 1rem;
+            color: #a0d0ff;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .next-steps ol {
+            text-align: left;
+            margin-left: 1.5rem;
+        }
+        
+        .next-steps li {
+            margin-bottom: 1rem;
+        }
+        
+        .social-share {
+            margin-top: 2rem;
+        }
+        
+        .social-share h3 {
+            margin-bottom: 1rem;
+            color: #a0d0ff;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(123, 104, 238, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid rgba(123, 104, 238, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-button:hover {
+            transform: translateY(-5px);
+            background: rgba(123, 104, 238, 0.4);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .back-button {
+            background: linear-gradient(45deg, #4169e1, #7b68ee);
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(65, 105, 225, 0.3);
+        }
+        
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(65, 105, 225, 0.4);
+        }
+        
+        .back-button:hover::before {
+            left: 100%;
+        }
+        
+        /* フッター */
+        footer {
+            background-color: rgba(10, 10, 26, 0.9);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(123, 104, 238, 0.2);
+        }
+        
+        footer p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #a0a0c0;
+        }
+        
+        /* SNSアイコン */
+        .twitter-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M22.162 5.656a8.384 8.384 0 0 1-2.402.658A4.196 4.196 0 0 0 21.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 0 0-7.126 3.814 11.874 11.874 0 0 1-8.62-4.37 4.168 4.168 0 0 0-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 0 1-1.894-.523v.052a4.185 4.185 0 0 0 3.355 4.101 4.21 4.21 0 0 1-1.89.072A4.185 4.185 0 0 0 7.97 16.65a8.394 8.394 0 0 1-6.191 1.732 11.83 11.83 0 0 0 6.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.496 8.496 0 0 0 2.087-2.165z' fill='white'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%;
+        }
+        
+        .facebook-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z' fill='white'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%;
+        }
+        
+        .instagram-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.802c-2.67 0-2.986.01-4.04.059-.976.045-1.505.207-1.858.344-.466.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.048 1.055-.058 1.37-.058 4.04 0 2.67.01 2.986.058 4.04.045.976.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.04.058 2.67 0 2.987-.01 4.04-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.04 0-2.67-.01-2.986-.058-4.04-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 0 0-.748-1.15 3.098 3.098 0 0 0-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.054-.048-1.37-.058-4.04-.058zm0 3.063a5.135 5.135 0 1 1 0 10.27 5.135 5.135 0 0 1 0-10.27zm0 8.468a3.333 3.333 0 1 0 0-6.666 3.333 3.333 0 0 0 0 6.666zm6.538-8.469a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z' fill='white'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%;
+        }
+        
+        .line-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M22 10.69c0-4.914-4.917-8.91-10.969-8.91-6.052 0-10.969 3.996-10.969 8.91 0 4.401 3.906 8.09 9.177 8.781.356.082.864.249 1.003.547.12.262.051.588.026.867l-.163.98c-.045.235-.252.945.883.515 1.136-.43 6.131-3.607 8.363-6.17C21.028 14.539 22 12.712 22 10.69zm-15.97 4.536h-1.97a.448.448 0 0 1-.447-.448V9.11c0-.247.2-.448.447-.448h1.97c.247 0 .447.2.447.448v1.219h1.744a.448.448 0 0 1 0 .895H7.447v1.015h1.744a.448.448 0 0 1 0 .896H7.447v1.556a.448.448 0 0 1-.447.447zm2.684 0a.448.448 0 0 1-.447-.448V9.11c0-.247.2-.448.447-.448h1.97c.247 0 .447.2.447.448v5.667a.448.448 0 0 1-.447.448h-1.97zm7.553-3.779a.448.448 0 0 1 0 .895h-1.744v2.437a.448.448 0 0 1-.447.447h-1.97a.448.448 0 0 1-.447-.447V9.11c0-.247.2-.448.447-.448h1.97c.247 0 .447.2.447.448v1.219h1.744a.448.448 0 0 1 0 .895h-1.744v1.222h1.744zm-7.106-1.222c0 .246-.2.446-.446.446h-.224v-1.444h.224c.246 0 .446.2.446.446v.552z' fill='white'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%;
+        }
+        
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .thanks-content {
+                padding: 2rem;
+            }
+            
+            .thanks-icon {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .thanks-icon::after {
+                font-size: 60px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .social-buttons {
+                gap: 1rem;
+            }
+            
+            .social-button {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空背景 -->
+    <div class="stars"></div>
+    
+    <div class="thanks-container">
+        <!-- 高級感のある星の輝き（JavaScriptで動的に生成） -->
+        
+        <div class="thanks-content">
+            <div class="thanks-icon"></div>
+            
+            <h1>お申し込みありがとうございます！</h1>
+            <p class="subtitle">UP!drinkのモニターにご登録いただきました</p>
+            
+            <p>この度は特別モニターコースにお申し込みいただき、誠にありがとうございます。<br>
+            お申し込み内容の確認メールを、ご登録いただいたメールアドレスに送信いたしました。</p>
+            
+            <div class="order-details">
+                <h3>ご注文内容</h3>
+                <div class="order-item">
+                    <span>UP!drink 10日分</span>
+                    <span>2,980円</span>
+                </div>
+                <div class="order-item">
+                    <span>上質なアロマキャンドル</span>
+                    <span class="free-item">無料プレゼント</span>
+                </div>
+                <div class="order-item">
+                    <span>50%OFF割引</span>
+                    <span>-1,490円</span>
+                </div>
+                <div class="order-item">
+                    <span>送料</span>
+                    <span>無料</span>
+                </div>
+                <div class="total">
+                    <span>合計</span>
+                    <span>1,490円（税込）</span>
+                </div>
+            </div>
+            
+            <div class="next-steps">
+                <h3>次のステップ</h3>
+                <ol>
+                    <li>ご入金確認後、3営業日以内に商品を発送いたします。</li>
+                    <li>商品到着後は、製品に同梱の説明書に従ってお召し上がりください。</li>
+                    <li>2週間後、ご感想をお伺いするアンケートをメールでお送りします。</li>
+                    <li>モニター特典として、次回ご注文時に使える20%OFFクーポンをプレゼントいたします。</li>
+                </ol>
+            </div>
+            
+            <div class="social-share">
+                <h3>あなたの快眠体験をシェアしませんか？</h3>
+                <p>SNSでUP!drinkをシェアして、あなたのお友達にも快適な睡眠をお届けしましょう。</p>
+                <div class="social-buttons">
+                    <div class="social-button twitter-icon" onclick="shareOnTwitter()">
+                        <span class="social-icon"></span>
+                    </div>
+                    <div class="social-button facebook-icon" onclick="shareOnFacebook()">
+                        <span class="social-icon"></span>
+                    </div>
+                    <div class="social-button instagram-icon" onclick="shareOnInstagram()">
+                        <span class="social-icon"></span>
+                    </div>
+                    <div class="social-button line-icon" onclick="shareOnLine()">
+                        <span class="social-icon"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="index.html" class="back-button">ホームに戻る</a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 UP!drink All Rights Reserved.</p>
+        <p>お問い合わせ: support@updrink.jp</p>
+    </footer>
+    
+    <script>
+        // 高級感のある星の輝き効果生成
+        function createStarShine() {
+            const starCount = 30;
+            const container = document.querySelector('.thanks-container');
+            const contentRect = document.querySelector('.thanks-content').getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-shine';
+                
+                // ランダムな位置（コンテンツの周りに配置）
+                let x, y;
+                // コンテンツ周辺のエリアに星を配置
+                if (Math.random() < 0.5) {
+                    // 左右に配置
+                    x = Math.random() < 0.5 ? 
+                        Math.random() * (contentRect.left - 20) : 
+                        contentRect.right + Math.random() * (containerRect.width - contentRect.right - 20);
+                    y = contentRect.top + Math.random() * contentRect.height;
+                } else {
+                    // 上下に配置
+                    x = contentRect.left + Math.random() * contentRect.width;
+                    y = Math.random() < 0.5 ? 
+                        Math.random() * (contentRect.top - 20) : 
+                        contentRect.bottom + Math.random() * (containerRect.height - contentRect.bottom - 20);
+                }
+                
+                star.style.left = `${x}px`;
+                star.style.top = `${y}px`;
+                
+                // ランダムなサイズ
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // ランダムな輝き
+                const intensity = Math.random() * 0.7 + 0.3;
+                star.style.boxShadow = `0 0 ${8 * intensity}px ${2 * intensity}px rgba(255, 255, 255, ${0.8 * intensity})`;
+                
+                // ランダムなアニメーション遅延
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                // アニメーション継続時間
