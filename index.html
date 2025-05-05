@@ -641,7 +641,44 @@
           background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
           padding: 0.8rem 1.8rem;
         }
-    </style>
+        <!-- CTA、特別モニターコース、よくある質問を中央揃えに修正するCSS -->
+<style>
+/* CTA中央揃え */
+.cta-button {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 400px; /* ボタンの最大幅を設定 */
+}
+
+/* 特別モニターコースの中央揃え */
+#offer .problem-solution {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* よくある質問から下のセクションを中央揃え */
+#faq .problem-solution,
+#legal .problem-solution,
+#privacy .problem-solution {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 特商法とプライバシーポリシーのテーブルの調整 */
+.legal-table {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* プライバシーポリシーのテキスト調整 */
+.privacy-policy {
+    text-align: left; /* 内容は左揃えのままにしておく */
+}
+</style>    </style>
 </head>
 <body>
     <!-- 星空背景 - ページ全体に適用 -->
@@ -710,21 +747,21 @@
         
         <div class="ingredients">
             <div class="ingredient">
-                <div class="ingredient-image">霊芝の画像</div>
+                <div class="reishi.png">霊芝の画像</div>
                 <h3>霊芝（レイシ）</h3>
                 <p>2000年以上前から「不老長寿の薬」として珍重されてきた霊芝。アダプトゲン作用により、ストレスに対する抵抗力を高め、心身のバランスを整えます。</p>
                 <p>UP!drinkには最高品質の霊芝エキスを配合しています。</p>
             </div>
             
             <div class="ingredient">
-                <div class="ingredient-image">アシュワガンダの画像</div>
+                <div class="ashwagandha.png">アシュワガンダの画像</div>
                 <h3>アシュワガンダ</h3>
                 <p>インド伝統医学アーユルヴェーダの代表的ハーブ。ストレスホルモン「コルチゾール」のレベルを下げ、リラックス状態へと導きます。</p>
                 <p>UP!drinkでは有効成分が豊富な根のエキスを使用しています。</p>
             </div>
             
             <div class="ingredient">
-                <div class="ingredient-image">トリプトファンの画像</div>
+                <div class="toript.png">トリプトファンの画像</div>
                 <h3>トリプトファン</h3>
                 <p>幸せホルモン「セロトニン」の原料となる必須アミノ酸。体内でセロトニンに変換された後、さらに睡眠ホルモン「メラトニン」に変わります。</p>
                 <p>UP!drinkには最も吸収率の高い形で配合しています。</p>
