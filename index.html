@@ -65,6 +65,8 @@
         /* ヘッダー */
         header {
             height: 100vh;
+            padding-top: 60px;
+            padding-bottom: 40px;
             background: linear-gradient(rgba(10, 10, 26, 0.5), rgba(10, 10, 26, 0.5));
             display: flex;
             flex-direction: column;
@@ -656,8 +658,8 @@
     
 #offer .problem-solution{
     max-width: 800px;
-    margin-left: 2rem auto;
-    margin-right: 2rem auto;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
         
@@ -890,7 +892,7 @@
     <!-- このコードをランディングページのフォームセクションに置き換えてください -->
 <section id="form">
     <h2>特別モニター登録フォーム</h2>
-    <form action="https://formsubmit.co/t.1436@icloud.com" method="POST" id="monitorForm">
+    <form action="https://formspree.io/f/xovdjkpq" method="POST" id="monitorForm">
         <input type="hidden" name="_next" value="https://Tatsuya1031.github.io/my-landing-page/thank.html">
         <input type="hidden" name="_captcha" value="false">
         
@@ -1058,13 +1060,40 @@
         <p class="disclaimer">※ 効果には個人差があります。本品は医薬品ではありません。<br>
         本サイトに記載されている内容は、健康増進を目的としたものであり、特定の疾病の診断、治療、予防を目的としたものではありません。<br>
         体調に異変を感じた場合は、医師にご相談ください。</p>
-    </footer>
+    </footer>    
+<script>
+// カウントダウン終了日時を設定（例: 現在から24時間後）
+const countDownDate = new Date();
+countDownDate.setHours(countDownDate.getHours() + 24);
+
+// 1秒ごとにカウントダウンを更新
+const countdown = setInterval(function() {
+    // 現在の日時を取得
+    const now = new Date().getTime();
     
-    <div class="slide-up-cta">
-        <a href="#form" class="cta-button slide-up-cta-button">今だけ50%OFF！モニター登録する</a>
-    </div>
+    // 終了時刻までの差分を計算
+    const distance = countDownDate - now;
     
+    // 日、時間、分、秒に変換
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
+    // 表示を更新
+    document.querySelectorAll('.countdown-number')[0].textContent = days;
+    document.querySelectorAll('.countdown-number')[1].textContent = hours;
+    document.querySelectorAll('.countdown-number')[2].textContent = minutes;
+    document.querySelectorAll('.countdown-number')[3].textContent = seconds;
     
+    // カウントダウン終了時の処理
+    if (distance < 0) {
+        clearInterval(countdown);
+        document.querySelectorAll('.countdown-number').forEach(element => {
+            element.textContent = "0";
+        });
+    }
+}, 1000);
+</script>
 </body>
 </html>
